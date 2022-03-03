@@ -52,7 +52,7 @@ def calcParityBits(arr, r):
 
 
 # Enter the data to be transmitted
-print("Code by : Sahil Kaling (20BCT0106)")
+print("Code by : Swarup Kharul (20BCT0073)")
 data = input("Enter the data: ")
 # data = '1011001'
 

@@ -1,7 +1,7 @@
 import socket
 import random
 
-print("Code by : Swarup Kharul 20BCT0073")
+print("Code by : Sahil Kaling 20BCT0106")
 
 
 def crc_sender(clientsocket, address):
