@@ -1,5 +1,7 @@
 import socket
 import random
+
+
 def server_program():
     # get the hostname
     host = socket.gethostname()
@@ -8,7 +10,7 @@ def server_program():
     n = 4
     new = 1
     win_start = 0
-    win_end   = win_start + n - 1
+    win_end = win_start + n - 1
     receiver = []
     server_socket = socket.socket()  # get instance
     # look closely. The bind() function takes tuple as argument
@@ -29,42 +31,45 @@ def server_program():
         count = 0
         flag = 0
         ack = rec
-        
+
         randy = random.randint(1, 4)
-        if new == 1 : 			#you received a new frame of a new window
-            while(count != randy):
+        if new == 1:  # you received a new frame of a new window
+            while count != randy:
                 temp = random.randint(rec, lim)
-                
+
                 if temp not in receiver:
                     print("Received Frame -> ", temp)
-                    count+=1
-                    flag = 1       #Atleast one new frame added in receiver buffer
+                    count += 1
+                    flag = 1  # Atleast one new frame added in receiver buffer
                     receiver.append(temp)
-        else :
-            print("Received Frame -> ", rec)       #you received a new frame of an old window
+        else:
+            print(
+                "Received Frame -> ", rec
+            )  # you received a new frame of an old window
             receiver.append(rec)
             flag = 1
-            if(flag == 1):
-                for i in range(rec,lim+1):
+            if flag == 1:
+                for i in range(rec, lim + 1):
                     if i not in receiver:
                         ack = i
                         break
-                    ack = i+1
-    
-        print("Sending ACK    -> ", ack) #next expected frame
-        print('***************************************************')
+                    ack = i + 1
+
+        print("Sending ACK    -> ", ack)  # next expected frame
+        print("***************************************************")
         data = str(ack)
         conn.send(data.encode())  # send data to the client
 
-        if ack > win_end :
+        if ack > win_end:
             win_start = ack
-            win_end   = win_start + n - 1
-            new = 1			# now receive a new frame of a new window
-        else :
-            new = 0 		# now received a new frame of an old window
+            win_end = win_start + n - 1
+            new = 1  # now receive a new frame of a new window
+        else:
+            new = 0  # now received a new frame of an old window
 
     conn.close()  # close the connection
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+    print("Code by Swarup Kharul - 20BCT0073\n")
     server_program()
