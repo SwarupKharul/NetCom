@@ -1,5 +1,6 @@
 import socket
 
+
 def client_program():
     n = 4
     win_start = 0
@@ -7,18 +8,18 @@ def client_program():
     host = socket.gethostname()  # as both code is running on same pc
     port = 3000  # socket server port number
     sender = []
-    flag = 0 #send whole sender list else 1 means send only win_start frame
+    flag = 0  # send whole sender list else 1 means send only win_start frame
     client_socket = socket.socket()  # instantiate
     client_socket.connect((host, port))  # connect to the server
-    print('Window Size is ', n)
+    print("Window Size is ", n)
     print('******** Enter "bye" to close connection ***************')
     message = input("Hit any key to start sending frames -> ")  # take input
-    while message.lower().strip() != 'bye':
+    while message.lower().strip() != "bye":
         print("Sending frames...")
-        if (flag == 0):
+        if flag == 0:
             for i in range(n):
                 sender.append(win_start + i)
-            for i in sender :
+            for i in sender:
                 print("Frame -> ", i)
         else:
             print("Frame -> ", win_start)
@@ -32,20 +33,21 @@ def client_program():
         if ack not in sender:
             win_start = ack
             win_end = win_start + n - 1
-            flag = 0         		#send new frame
+            flag = 0  # send new frame
             for i in range(n):
                 sender.pop()
         else:
             win_start = int(msg)
-            flag = 1			#send old frame
-        
+            flag = 1  # send old frame
+
         print("************************************")
-        print('Received ACK server: ' + data)  # show in terminal
-        
+        print("Received ACK server: " + data)  # show in terminal
+
         message = input("Hit any key to start sending frames -> ")  # again take input
 
     client_socket.close()  # close the connection
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+    print("Code by Swarup Kharul - 20BCT0073\n")
     client_program()
